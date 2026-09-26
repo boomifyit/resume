@@ -1,0 +1,4194 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="description" content="ATS-friendly Indian Resume Builder for IT, Engineering, Finance, Operations, Sales, Marketing, Healthcare and other sectors.">
+<meta name="robots" content="index, follow">
+
+<title>ATS Resume Builder | India</title>
+
+<!-- Tailwind CSS CDN as requested -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                brand: {
+                    50: '#eff6ff',
+                    100: '#dbeafe',
+                    500: '#2563eb',
+                    600: '#1d4ed8',
+                    700: '#1e40af',
+                    900: '#1e3a8a'
+                }
+            }
+        }
+    }
+};
+</script>
+
+<style>
+/* =========================================================
+   APPLICATION VARIABLES
+========================================================= */
+:root {
+    --brand: #2563eb;
+    --brand-dark: #1d4ed8;
+    --dark: #111827;
+    --muted: #64748b;
+    --border: #dbe2ea;
+    --surface: #ffffff;
+    --background: #f1f5f9;
+    --success: #15803d;
+    --danger: #dc2626;
+    --paper-width: 210mm;
+    --paper-height: 297mm;
+    --paper-padding: 17mm;
+}
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--background);
+    color: var(--dark);
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+.hidden-important {
+    display: none !important;
+}
+
+/* =========================================================
+   APP SHELL
+========================================================= */
+.app-shell {
+    min-height: 100vh;
+}
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.96);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+}
+
+.topbar-inner {
+    max-width: 1500px;
+    margin: auto;
+    min-height: 68px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    color: white;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+}
+
+.brand-title {
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.brand-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.app-layout {
+    max-width: 1500px;
+    margin: auto;
+    padding: 22px;
+    display: grid;
+    grid-template-columns: minmax(380px, 560px) minmax(550px, 1fr);
+    gap: 24px;
+    align-items: start;
+}
+
+.editor-column {
+    min-width: 0;
+}
+
+.preview-column {
+    min-width: 0;
+    position: sticky;
+    top: 90px;
+}
+
+/* =========================================================
+   UI COMPONENTS
+========================================================= */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px rgba(15,23,42,.05);
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-header h2 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.card-header p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.card-body {
+    padding: 18px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 14px;
+}
+
+.form-grid.single {
+    grid-template-columns: 1fr;
+}
+
+.field {
+    min-width: 0;
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #334155;
+}
+
+.field input,
+.field textarea,
+.field select {
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    color: #0f172a;
+    border-radius: 8px;
+    outline: none;
+    padding: 10px 11px;
+    transition: .15s ease;
+}
+
+.field textarea {
+    min-height: 92px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+}
+
+.help-text {
+    color: #64748b;
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.btn {
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 12px;
+    font-weight: 750;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    transition: .15s ease;
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background: var(--brand);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--brand-dark);
+}
+
+.btn-secondary {
+    background: #f8fafc;
+    color: #334155;
+    border-color: #cbd5e1;
+}
+
+.btn-secondary:hover {
+    background: #f1f5f9;
+}
+
+.btn-danger {
+    background: #fff;
+    color: var(--danger);
+    border-color: #fecaca;
+}
+
+.btn-danger:hover {
+    background: #fef2f2;
+}
+
+.btn-success {
+    background: #15803d;
+    color: #fff;
+}
+
+.btn-sm {
+    padding: 7px 9px;
+    font-size: 11px;
+}
+
+.section-actions {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+
+/* =========================================================
+   TEMPLATE SELECTOR
+========================================================= */
+.template-banner {
+    background:
+        radial-gradient(circle at top right, rgba(59,130,246,.15), transparent 35%),
+        linear-gradient(135deg,#0f172a,#1e3a8a);
+    color: white;
+}
+
+.template-banner .card-header {
+    border-color: rgba(255,255,255,.12);
+}
+
+.template-banner .card-header p {
+    color: #cbd5e1;
+}
+
+.template-banner .card-body {
+    padding-top: 14px;
+}
+
+.template-banner label {
+    color: #dbeafe;
+}
+
+.template-banner select {
+    border: 1px solid rgba(255,255,255,.22);
+    background: rgba(255,255,255,.1);
+    color: white;
+}
+
+.template-banner select option {
+    color: #111827;
+    background: white;
+}
+
+/* =========================================================
+   REPEATABLE ITEMS
+========================================================= */
+.repeatable-item {
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    background: #fbfdff;
+    overflow: hidden;
+}
+
+.repeatable-header {
+    padding: 10px 12px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.repeatable-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: #334155;
+}
+
+.repeatable-body {
+    padding: 13px;
+}
+
+.bullet-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.bullet-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 7px;
+}
+
+.bullet-row input {
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    padding: 9px 10px;
+}
+
+.bullet-row input:focus {
+    outline: none;
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+
+/* =========================================================
+   SKILLS
+========================================================= */
+.skill-category {
+    border: 1px solid #e2e8f0;
+    padding: 12px;
+    border-radius: 9px;
+    margin-bottom: 10px;
+}
+
+.skill-category-head {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 8px;
+}
+
+.skill-category-head input {
+    flex: 1;
+}
+
+.skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.skill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #eff6ff;
+    color: #1e40af;
+    border: 1px solid #bfdbfe;
+    border-radius: 999px;
+    padding: 5px 8px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.skill-tag button {
+    border: 0;
+    background: transparent;
+    color: #1e40af;
+    padding: 0;
+    line-height: 1;
+}
+
+.skill-add {
+    display: flex;
+    gap: 7px;
+}
+
+.skill-add input {
+    flex: 1;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    padding: 8px;
+    font-size: 12px;
+}
+
+/* =========================================================
+   ASSISTANT
+========================================================= */
+.assistant-box {
+    background: #f8fafc;
+    border: 1px solid #dbeafe;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 10px;
+}
+
+.assistant-box h3 {
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.suggestion {
+    padding: 9px 10px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+    margin-top: 6px;
+    font-size: 11px;
+    line-height: 1.45;
+    cursor: pointer;
+}
+
+.suggestion:hover {
+    border-color: #93c5fd;
+    background: #eff6ff;
+}
+
+/* =========================================================
+   ATS STATUS
+========================================================= */
+.ats-panel {
+    border: 1px solid #dbeafe;
+    background: #eff6ff;
+    border-radius: 10px;
+    padding: 13px;
+}
+
+.ats-score-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.ats-score {
+    font-size: 26px;
+    font-weight: 900;
+    color: #1d4ed8;
+}
+
+.progress {
+    height: 8px;
+    background: #dbeafe;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 9px 0;
+}
+
+.progress > span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: #2563eb;
+    transition: width .3s ease;
+}
+
+.ats-list {
+    margin: 0;
+    padding-left: 18px;
+    color: #475569;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   RESUME PREVIEW AREA
+========================================================= */
+.preview-toolbar {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.preview-toolbar small {
+    color: var(--muted);
+}
+
+.paper-wrap {
+    width: 100%;
+    overflow: auto;
+    padding: 10px;
+    background: #cbd5e1;
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 1px rgba(15,23,42,.08);
+}
+
+.resume-paper {
+    width: var(--paper-width);
+    min-height: var(--paper-height);
+    margin: 0 auto;
+    background: #fff;
+    color: #111;
+    padding: var(--paper-padding);
+    box-shadow: 0 10px 30px rgba(15,23,42,.18);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.38;
+}
+
+/* =========================================================
+   ATS RESUME SEMANTIC STRUCTURE
+========================================================= */
+.resume-header {
+    margin-bottom: 13px;
+}
+
+.resume-name {
+    font-size: 21pt;
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: .2px;
+    margin: 0 0 5px;
+}
+
+.resume-role {
+    font-size: 11pt;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.resume-contact {
+    display: block;
+    font-size: 9.3pt;
+    line-height: 1.45;
+}
+
+.resume-contact a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.resume-section {
+    margin-top: 11px;
+}
+
+.resume-section-title {
+    font-size: 11pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    border-bottom: 1px solid #111;
+    padding-bottom: 2px;
+    margin: 0 0 6px;
+}
+
+.resume-summary {
+    margin: 0;
+    text-align: left;
+}
+
+.resume-skills {
+    display: block;
+}
+
+.resume-skill-line {
+    margin-bottom: 3px;
+}
+
+.resume-skill-label {
+    font-weight: 700;
+}
+
+.resume-experience-item,
+.resume-project-item,
+.resume-education-item,
+.resume-cert-item {
+    margin-bottom: 8px;
+}
+
+.resume-item-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-weight: 800;
+}
+
+.resume-item-heading .date {
+    white-space: nowrap;
+    font-weight: 700;
+}
+
+.resume-item-subheading {
+    font-style: normal;
+    font-weight: 600;
+}
+
+.resume-bullets {
+    margin: 3px 0 0 17px;
+    padding: 0;
+}
+
+.resume-bullets li {
+    margin-bottom: 2px;
+    padding-left: 1px;
+}
+
+.resume-plain-list {
+    margin: 0;
+    padding-left: 17px;
+}
+
+.resume-plain-list li {
+    margin-bottom: 2px;
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+.preview-empty {
+    color: #64748b;
+    font-style: italic;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 1100px) {
+    .app-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .preview-column {
+        position: static;
+    }
+
+    .resume-paper {
+        transform-origin: top center;
+    }
+}
+
+@media (max-width: 650px) {
+    .topbar-inner {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .toolbar {
+        width: 100%;
+    }
+
+    .toolbar .btn {
+        flex: 1;
+    }
+
+    .app-layout {
+        padding: 10px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .field.full {
+        grid-column: auto;
+    }
+
+    .paper-wrap {
+        padding: 5px;
+    }
+
+    .resume-paper {
+        transform: scale(.82);
+        transform-origin: top left;
+        margin-right: -18%;
+        margin-bottom: -18%;
+    }
+}
+
+/* =========================================================
+   PRINT / PDF ENGINE
+========================================================= */
+@page {
+    size: A4;
+    margin: 0;
+}
+
+@media print {
+    html,
+    body {
+        width: 210mm;
+        min-width: 210mm;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: white !important;
+    }
+
+    body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .no-print,
+    .topbar,
+    .editor-column,
+    .preview-toolbar,
+    .preview-column > .preview-toolbar,
+    .paper-wrap {
+        display: none !important;
+    }
+
+    .app-layout,
+    .preview-column {
+        display: block !important;
+        width: 210mm !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .preview-column {
+        position: static !important;
+    }
+
+    .resume-paper {
+        display: block !important;
+        width: 210mm !important;
+        min-height: 297mm !important;
+        margin: 0 !important;
+        padding: 17mm !important;
+        box-shadow: none !important;
+        transform: none !important;
+        font-size: 10.5pt !important;
+        color: #000 !important;
+        background: #fff !important;
+    }
+
+    .resume-section {
+        break-inside: auto;
+    }
+
+    .resume-experience-item,
+    .resume-project-item,
+    .resume-education-item,
+    .resume-cert-item {
+        break-inside: avoid;
+    }
+
+    .resume-section-title {
+        border-color: #000 !important;
+    }
+
+    a {
+        color: #000 !important;
+        text-decoration: none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- =====================================================
+         TOP NAVIGATION
+    ====================================================== -->
+    <header class="topbar no-print">
+        <div class="topbar-inner">
+
+            <div class="brand">
+                <div class="brand-mark">CV</div>
+                <div>
+                    <div class="brand-title">ATS Resume Builder</div>
+                    <div class="brand-subtitle">Indian Job Market • ATS Optimized</div>
+                </div>
+            </div>
+
+            <div class="toolbar">
+                <button class="btn btn-secondary" id="saveBtn">
+                    Save
+                </button>
+
+                <button class="btn btn-secondary" id="loadBtn">
+                    Load
+                </button>
+
+                <button class="btn btn-danger" id="resetBtn">
+                    Reset
+                </button>
+
+                <button class="btn btn-primary" id="printBtn">
+                    Export PDF / Print
+                </button>
+            </div>
+
+        </div>
+    </header>
+
+
+    <main class="app-layout">
+
+        <!-- =================================================
+             EDITOR
+        ================================================== -->
+        <section class="editor-column no-print">
+
+            <!-- Template -->
+            <section class="card template-banner">
+                <div class="card-header">
+                    <div>
+                        <h2>Resume Template</h2>
+                        <p>Choose a role to populate ATS-friendly starter content.</p>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="field">
+                        <label for="sectorTemplate">Indian Job Role Template</label>
+
+                        <select id="sectorTemplate">
+                            <option value="">Blank Resume</option>
+                            <option value="software">Software Engineer</option>
+                            <option value="finance">Chartered Accountant / Finance Analyst</option>
+                            <option value="mechanical">Mechanical Project Engineer</option>
+                            <option value="marketing">Digital Marketing Specialist</option>
+                            <option value="operations">Operations Manager</option>
+                            <option value="healthcare">Healthcare Professional</option>
+                            <option value="sales">Sales Executive / Business Development</option>
+                            <option value="hr">Human Resources Professional</option>
+                            <option value="civil">Civil Project Engineer</option>
+                        </select>
+
+                        <div class="help-text">
+                            Selecting a template replaces the current resume content.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ATS STATUS -->
+            <section class="card no-print">
+                <div class="card-header">
+                    <div>
+                        <h2>ATS Readiness</h2>
+                        <p>Structural checks for common ATS parsing requirements.</p>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="ats-panel">
+                        <div class="ats-score-row">
+                            <div>
+                                <strong>ATS Structural Score</strong>
+                                <div class="help-text">
+                                    This is a structural checklist, not a guarantee of ATS selection.
+                                </div>
+                            </div>
+
+                            <div class="ats-score" id="atsScore">0%</div>
+                        </div>
+
+                        <div class="progress">
+                            <span id="atsProgress"></span>
+                        </div>
+
+                        <ul class="ats-list" id="atsChecklist"></ul>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PERSONAL INFO -->
+            <section class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Personal Information</h2>
+                        <p>India-focused ATS-safe contact schema.</p>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="form-grid">
+
+                        <div class="field full">
+                            <label for="fullName">Full Name *</label>
+                            <input id="fullName" type="text" autocomplete="name"
+                                   placeholder="e.g. Rahul Sharma">
+                        </div>
+
+                        <div class="field">
+                            <label for="professionalTitle">Professional Title</label>
+                            <input id="professionalTitle" type="text"
+                                   placeholder="e.g. Senior Software Engineer">
+                        </div>
+
+                        <div class="field">
+                            <label for="city">City *</label>
+                            <input id="city" type="text"
+                                   placeholder="e.g. Bengaluru">
+                        </div>
+
+                        <div class="field">
+                            <label for="state">State *</label>
+                            <input id="state" type="text"
+                                   placeholder="e.g. Karnataka">
+                        </div>
+
+                        <div class="field">
+                            <label for="country">Country</label>
+                            <input id="country" type="text" value="India" readonly>
+                        </div>
+
+                        <div class="field">
+                            <label for="phone">Phone *</label>
+                            <input id="phone" type="tel"
+                                   placeholder="+91 98765 43210">
+                        </div>
+
+                        <div class="field">
+                            <label for="email">Professional Email *</label>
+                            <input id="email" type="email"
+                                   placeholder="name@example.com">
+                        </div>
+
+                        <div class="field">
+                            <label for="linkedin">LinkedIn URL</label>
+                            <input id="linkedin" type="url"
+                                   placeholder="https://www.linkedin.com/in/yourname">
+                        </div>
+
+                        <div class="field">
+                            <label for="portfolio">Portfolio / GitHub URL</label>
+                            <input id="portfolio" type="url"
+                                   placeholder="https://github.com/yourname">
+                        </div>
+
+                    </div>
+
+                    <div class="help-text">
+                        Photos, age, date of birth, marital status and full street addresses are intentionally excluded.
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- SUMMARY -->
+            <section class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Professional Summary</h2>
+                        <p>Keep this concise, role-specific and keyword-rich.</p>
+                    </div>
+                    <span class="text-xs text-slate-500" id="summaryCount">0 / 600</span>
+                </div>
+
+                <div class="card-body">
+                    <div class="field">
+                        <textarea id="summary"
+                            maxlength="600"
+                            placeholder="Write a 3–5 line professional summary focused on experience, domain expertise, tools and measurable impact."></textarea>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- SKILLS -->
+            <section class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Skills</h2>
+                        <p>Group technical, functional, domain and soft skills.</p>
+                    </div>
+
+                    <button class="btn btn-secondary btn-sm" id="addSkillCategoryBtn">
+                        + Category
+                    </button>
+                </div>
+
+                <div class="card-body">
+                    <div id="skillsContainer"></div>
+                </div>
+            </section>
+
+
+            <!-- EXPERIENCE -->
+            <section class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Work Experience</h2>
+                        <p>Use achievement-focused bullets with measurable outcomes.</p>
+                    </div>
+
+                    <button class="btn btn-primary btn-sm" id="addExperienceBtn">
+                        + Experience
+                    </button>
+                </div>
+
+                <div class="card-body">
+                    <div id="experienceContainer"></div>
+                </div>
+            </section>
+
+
+            <!-- PROJECTS -->
+            <section class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Projects</h2>
+                        <p>Show relevant projects with technology, action and impact.</p>
+                    </div>
+
+                    <button class="btn btn-primary btn-sm" id="addProjectBtn">
+                        + Project
+                    </button>
+                </div>
+
+                <div class="card-body">
+                    <div id="projectsContainer"></div>
+                </div>
+            </section>
+
+
+            <!-- EDUCATION -->
+            <section class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Education</h2>
+                        <p>Use recognizable degree and institution names.</p>
+                    </div>
+
+                    <button class="btn btn-primary btn-sm" id="addEducationBtn">
+                        + Education
+                    </button>
+                </div>
+
+                <div class="card-body">
+                    <div id="educationContainer"></div>
+                </div>
+            </section>
+
+
+            <!-- CERTIFICATIONS -->
+            <section class="card">
+                <div class="card-header">
+                    <div>
+                        <h2>Certifications</h2>
+                        <p>Include relevant professional credentials.</p>
+                    </div>
+
+                    <button class="btn btn-primary btn-sm" id="addCertificationBtn">
+                        + Certification
+                    </button>
+                </div>
+
+                <div class="card-body">
+                    <div id="certificationsContainer"></div>
+                </div>
+            </section>
+
+        </section>
+
+
+        <!-- =================================================
+             PREVIEW
+        ================================================== -->
+        <section class="preview-column">
+
+            <div class="preview-toolbar no-print">
+                <div>
+                    <strong>Live Resume Preview</strong>
+                    <small> • A4 / ATS Single Column</small>
+                </div>
+
+                <button class="btn btn-primary btn-sm" id="printBtn2">
+                    Print / PDF
+                </button>
+            </div>
+
+            <div class="paper-wrap">
+                <article class="resume-paper" id="resumePreview">
+
+                    <!-- HEADER -->
+                    <header class="resume-header">
+                        <h1 class="resume-name" id="previewName">
+                            Your Full Name
+                        </h1>
+
+                        <div class="resume-role" id="previewRole">
+                            Professional Title
+                        </div>
+
+                        <div class="resume-contact" id="previewContact">
+                            City, State, India • +91 XXXXX XXXXX • email@example.com
+                        </div>
+                    </header>
+
+
+                    <!-- SUMMARY -->
+                    <section class="resume-section" id="previewSummarySection">
+                        <h2 class="resume-section-title">Professional Summary</h2>
+                        <p class="resume-summary" id="previewSummary">
+                            <span class="preview-empty">
+                                Add a professional summary from the editor.
+                            </span>
+                        </p>
+                    </section>
+
+
+                    <!-- SKILLS -->
+                    <section class="resume-section" id="previewSkillsSection">
+                        <h2 class="resume-section-title">Skills</h2>
+                        <div class="resume-skills" id="previewSkills"></div>
+                    </section>
+
+
+                    <!-- EXPERIENCE -->
+                    <section class="resume-section" id="previewExperienceSection">
+                        <h2 class="resume-section-title">Professional Experience</h2>
+                        <div id="previewExperience"></div>
+                    </section>
+
+
+                    <!-- PROJECTS -->
+                    <section class="resume-section" id="previewProjectsSection">
+                        <h2 class="resume-section-title">Projects</h2>
+                        <div id="previewProjects"></div>
+                    </section>
+
+
+                    <!-- EDUCATION -->
+                    <section class="resume-section" id="previewEducationSection">
+                        <h2 class="resume-section-title">Education</h2>
+                        <div id="previewEducation"></div>
+                    </section>
+
+
+                    <!-- CERTIFICATIONS -->
+                    <section class="resume-section" id="previewCertificationsSection">
+                        <h2 class="resume-section-title">Certifications</h2>
+                        <div id="previewCertifications"></div>
+                    </section>
+
+                </article>
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+<script>
+/* =========================================================
+   ATS RESUME BUILDER
+   Vanilla JavaScript
+========================================================= */
+
+"use strict";
+
+
+/* =========================================================
+   CONSTANTS
+========================================================= */
+
+const STORAGE_KEY = "ats_resume_builder_india_v1";
+
+const ACTION_VERBS = [
+    "Achieved",
+    "Accelerated",
+    "Automated",
+    "Built",
+    "Coordinated",
+    "Created",
+    "Delivered",
+    "Developed",
+    "Directed",
+    "Enhanced",
+    "Established",
+    "Implemented",
+    "Improved",
+    "Increased",
+    "Launched",
+    "Led",
+    "Managed",
+    "Optimized",
+    "Reduced",
+    "Streamlined"
+];
+
+
+/* =========================================================
+   ROLE TEMPLATES
+========================================================= */
+
+const TEMPLATES = {
+
+    software: {
+        personal: {
+            fullName: "Rahul Sharma",
+            professionalTitle: "Software Engineer",
+            city: "Bengaluru",
+            state: "Karnataka",
+            country: "India",
+            phone: "+91 98765 43210",
+            email: "rahul.sharma@example.com",
+            linkedin: "https://www.linkedin.com/in/rahulsharma",
+            portfolio: "https://github.com/rahulsharma"
+        },
+
+        summary:
+            "Software Engineer with 4+ years of experience designing, developing and deploying scalable web applications. Skilled in JavaScript, TypeScript, React, Node.js, REST APIs and SQL. Delivered automation and performance improvements through clean architecture, CI/CD and data-driven engineering practices.",
+
+        skills: [
+            {
+                category: "Programming",
+                items: ["JavaScript", "TypeScript", "Python", "SQL"]
+            },
+            {
+                category: "Frameworks",
+                items: ["React", "Node.js", "Express"]
+            },
+            {
+                category: "Cloud & DevOps",
+                items: ["AWS", "Docker", "GitHub Actions", "CI/CD"]
+            },
+            {
+                category: "Engineering",
+                items: ["REST APIs", "Microservices", "Git", "Agile"]
+            }
+        ],
+
+        experience: [
+            {
+                jobTitle: "Software Engineer",
+                company: "ABC Technologies",
+                location: "Bengaluru, Karnataka",
+                startDate: "2023",
+                endDate: "Present",
+                bullets: [
+                    "Developed scalable web applications using React, Node.js and PostgreSQL for enterprise customers.",
+                    "Improved API response time by 35% by optimizing database queries, caching and service-level logic.",
+                    "Automated deployment workflows using GitHub Actions, reducing manual release effort by 60%."
+                ]
+            },
+            {
+                jobTitle: "Associate Software Engineer",
+                company: "XYZ Digital Solutions",
+                location: "Hyderabad, Telangana",
+                startDate: "2021",
+                endDate: "2023",
+                bullets: [
+                    "Built reusable frontend components that reduced feature development time by 25%.",
+                    "Resolved production defects and improved application reliability through automated testing and monitoring."
+                ]
+            }
+        ],
+
+        projects: [
+            {
+                name: "Customer Analytics Platform",
+                technologies: "React, Node.js, PostgreSQL, AWS",
+                link: "https://github.com/rahulsharma/customer-analytics",
+                bullets: [
+                    "Built an analytics platform processing customer activity data and presenting role-based dashboards.",
+                    "Reduced dashboard loading time by 40% through API optimization and indexed database queries."
+                ]
+            }
+        ],
+
+        education: [
+            {
+                degree: "Bachelor of Technology in Computer Science",
+                institution: "ABC Institute of Technology",
+                location: "Bengaluru, Karnataka",
+                startDate: "2017",
+                endDate: "2021",
+                grade: "CGPA: 8.4/10"
+            }
+        ],
+
+        certifications: [
+            {
+                name: "AWS Certified Cloud Practitioner",
+                issuer: "Amazon Web Services",
+                year: "2024",
+                credential: "AWS-XXXX"
+            }
+        ]
+    },
+
+
+    finance: {
+        personal: {
+            fullName: "Priya Mehta",
+            professionalTitle: "Finance Analyst",
+            city: "Mumbai",
+            state: "Maharashtra",
+            country: "India",
+            phone: "+91 98765 12345",
+            email: "priya.mehta@example.com",
+            linkedin: "https://www.linkedin.com/in/priyamehta",
+            portfolio: ""
+        },
+
+        summary:
+            "Finance professional with experience in financial reporting, budgeting, variance analysis, management reporting and process improvement. Skilled in Excel, financial modelling, ERP systems and data analysis with a focus on improving reporting accuracy and decision support.",
+
+        skills: [
+            {
+                category: "Finance",
+                items: ["Financial Analysis", "Budgeting", "Forecasting", "Variance Analysis"]
+            },
+            {
+                category: "Tools",
+                items: ["Advanced Excel", "Power BI", "SAP", "SQL"]
+            },
+            {
+                category: "Accounting",
+                items: ["Financial Reporting", "MIS", "Reconciliation", "Audit Support"]
+            }
+        ],
+
+        experience: [
+            {
+                jobTitle: "Finance Analyst",
+                company: "ABC Financial Services",
+                location: "Mumbai, Maharashtra",
+                startDate: "2022",
+                endDate: "Present",
+                bullets: [
+                    "Prepared monthly management reports and variance analysis for business units with annual revenue exceeding ₹100 crore.",
+                    "Reduced monthly reporting cycle time by 30% by automating Excel-based reporting workflows.",
+                    "Improved forecast accuracy by 15% through structured variance analysis and business-driver modelling."
+                ]
+            }
+        ],
+
+        projects: [
+            {
+                name: "Financial Dashboard Automation",
+                technologies: "Excel, Power BI, SQL",
+                link: "",
+                bullets: [
+                    "Built an automated management dashboard consolidating revenue, cost and profitability metrics.",
+                    "Reduced manual reporting effort by 20 hours per month through reusable data models."
+                ]
+            }
+        ],
+
+        education: [
+            {
+                degree: "Chartered Accountancy",
+                institution: "Institute of Chartered Accountants of India",
+                location: "India",
+                startDate: "",
+                endDate: "2022",
+                grade: ""
+            },
+            {
+                degree: "Bachelor of Commerce",
+                institution: "University of Mumbai",
+                location: "Mumbai, Maharashtra",
+                startDate: "2017",
+                endDate: "2020",
+                grade: "CGPA: 8.1/10"
+            }
+        ],
+
+        certifications: [
+            {
+                name: "Financial Modelling Certification",
+                issuer: "Corporate Finance Institute",
+                year: "2023",
+                credential: ""
+            }
+        ]
+    },
+
+
+    mechanical: {
+        personal: {
+            fullName: "Arjun Patel",
+            professionalTitle: "Mechanical Project Engineer",
+            city: "Ahmedabad",
+            state: "Gujarat",
+            country: "India",
+            phone: "+91 98765 67890",
+            email: "arjun.patel@example.com",
+            linkedin: "https://www.linkedin.com/in/arjunpatel",
+            portfolio: ""
+        },
+
+        summary:
+            "Mechanical Project Engineer with 6+ years of experience managing industrial engineering projects, equipment installation, vendor coordination and commissioning. Experienced in project planning, cost control, site execution, safety compliance and cross-functional coordination.",
+
+        skills: [
+            {
+                category: "Engineering",
+                items: ["Mechanical Design", "Equipment Installation", "Commissioning", "Maintenance"]
+            },
+            {
+                category: "Project Management",
+                items: ["Project Planning", "Cost Control", "Vendor Management", "Site Execution"]
+            },
+            {
+                category: "Tools",
+                items: ["AutoCAD", "SolidWorks", "MS Project", "Excel"]
+            }
+        ],
+
+        experience: [
+            {
+                jobTitle: "Project Engineer",
+                company: "ABC Engineering Pvt. Ltd.",
+                location: "Ahmedabad, Gujarat",
+                startDate: "2020",
+                endDate: "Present",
+                bullets: [
+                    "Managed mechanical installation projects valued at ₹8 crore across multiple industrial sites.",
+                    "Reduced project delays by 18% through structured vendor coordination, milestone tracking and risk reviews.",
+                    "Coordinated commissioning activities with engineering, procurement, safety and client teams."
+                ]
+            }
+        ],
+
+        projects: [
+            {
+                name: "Industrial HVAC Installation Project",
+                technologies: "AutoCAD, MS Project, HVAC, Site Engineering",
+                link: "",
+                bullets: [
+                    "Coordinated equipment installation, ducting and commissioning activities for a controlled manufacturing facility.",
+                    "Completed project activities within approved execution milestones through daily progress monitoring."
+                ]
+            }
+        ],
+
+        education: [
+            {
+                degree: "Bachelor of Engineering in Mechanical Engineering",
+                institution: "Gujarat Technological University",
+                location: "Ahmedabad, Gujarat",
+                startDate: "2015",
+                endDate: "2019",
+                grade: "CGPA: 8.0/10"
+            }
+        ],
+
+        certifications: [
+            {
+                name: "AutoCAD Professional Certification",
+                issuer: "Autodesk",
+                year: "2020",
+                credential: ""
+            }
+        ]
+    },
+
+
+    marketing: {
+        personal: {
+            fullName: "Ananya Rao",
+            professionalTitle: "Digital Marketing Specialist",
+            city: "Chennai",
+            state: "Tamil Nadu",
+            country: "India",
+            phone: "+91 98765 11223",
+            email: "ananya.rao@example.com",
+            linkedin: "https://www.linkedin.com/in/ananyarao",
+            portfolio: "https://ananyarao.example.com"
+        },
+
+        summary:
+            "Digital Marketing Specialist with 5+ years of experience developing SEO, paid media, content and social media strategies. Experienced in managing performance campaigns, improving organic visibility and translating marketing analytics into measurable revenue outcomes.",
+
+        skills: [
+            {
+                category: "Digital Marketing",
+                items: ["SEO", "SEM", "Content Marketing", "Social Media Marketing"]
+            },
+            {
+                category: "Analytics",
+                items: ["Google Analytics", "Google Ads", "Looker Studio", "A/B Testing"]
+            },
+            {
+                category: "Content",
+                items: ["Copywriting", "Content Strategy", "Email Marketing", "Campaign Management"]
+            }
+        ],
+
+        experience: [
+            {
+                jobTitle: "Digital Marketing Specialist",
+                company: "ABC Consumer Brands",
+                location: "Chennai, Tamil Nadu",
+                startDate: "2021",
+                endDate: "Present",
+                bullets: [
+                    "Increased organic website traffic by 42% through technical SEO, content optimization and internal linking.",
+                    "Reduced paid acquisition cost by 22% by optimizing campaign structure, audience targeting and landing pages.",
+                    "Managed multi-channel campaigns across Google Ads, Meta and email with monthly budgets exceeding ₹15 lakh."
+                ]
+            }
+        ],
+
+        projects: [
+            {
+                name: "Organic Growth Program",
+                technologies: "SEO, Google Analytics, Search Console, Content",
+                link: "",
+                bullets: [
+                    "Developed a content-led SEO program targeting high-intent commercial keywords.",
+                    "Generated a 35% increase in qualified organic leads within 12 months."
+                ]
+            }
+        ],
+
+        education: [
+            {
+                degree: "Bachelor of Business Administration",
+                institution: "University of Madras",
+                location: "Chennai, Tamil Nadu",
+                startDate: "2016",
+                endDate: "2019",
+                grade: ""
+            }
+        ],
+
+        certifications: [
+            {
+                name: "Google Analytics Certification",
+                issuer: "Google",
+                year: "2024",
+                credential: ""
+            }
+        ]
+    },
+
+
+    operations: {
+        personal: {
+            fullName: "Vikram Singh",
+            professionalTitle: "Operations Manager",
+            city: "Pune",
+            state: "Maharashtra",
+            country: "India",
+            phone: "+91 98765 44556",
+            email: "vikram.singh@example.com",
+            linkedin: "https://www.linkedin.com/in/vikramsingh",
+            portfolio: ""
+        },
+
+        summary:
+            "Operations Manager with 9+ years of experience leading teams, optimizing business processes, improving service quality and controlling operational costs. Experienced in KPI management, workforce planning, SOP implementation, vendor coordination and continuous improvement.",
+
+        skills: [
+            {
+                category: "Operations",
+                items: ["Process Improvement", "SOP Management", "KPI Management", "Quality Management"]
+            },
+            {
+                category: "Leadership",
+                items: ["Team Management", "Workforce Planning", "Performance Management", "Stakeholder Management"]
+            },
+            {
+                category: "Tools",
+                items: ["Advanced Excel", "Power BI", "ERP", "CRM"]
+            }
+        ],
+
+        experience: [
+            {
+                jobTitle: "Operations Manager",
+                company: "ABC Services India",
+                location: "Pune, Maharashtra",
+                startDate: "2019",
+                endDate: "Present",
+                bullets: [
+                    "Managed a 75-member operations team supporting more than 20,000 monthly customer transactions.",
+                    "Reduced operating costs by 16% through workforce optimization, process redesign and vendor negotiations.",
+                    "Improved SLA compliance from 88% to 97% by introducing KPI dashboards and structured daily reviews."
+                ]
+            }
+        ],
+
+        projects: [
+            {
+                name: "Operations Process Excellence Program",
+                technologies: "Lean, Excel, Power BI, SOP Design",
+                link: "",
+                bullets: [
+                    "Redesigned key operational workflows and introduced standardized SOPs across three teams.",
+                    "Reduced average process turnaround time by 25% through workflow simplification."
+                ]
+            }
+        ],
+
+        education: [
+            {
+                degree: "Master of Business Administration",
+                institution: "Savitribai Phule Pune University",
+                location: "Pune, Maharashtra",
+                startDate: "2014",
+                endDate: "2016",
+                grade: ""
+            }
+        ],
+
+        certifications: [
+            {
+                name: "Lean Six Sigma Green Belt",
+                issuer: "ASQ",
+                year: "2021",
+                credential: ""
+            }
+        ]
+    },
+
+
+    healthcare: {
+        personal: {
+            fullName: "Dr. Neha Kapoor",
+            professionalTitle: "Healthcare Professional",
+            city: "Delhi",
+            state: "Delhi",
+            country: "India",
+            phone: "+91 98765 77889",
+            email: "neha.kapoor@example.com",
+            linkedin: "https://www.linkedin.com/in/nehakapoor",
+            portfolio: ""
+        },
+
+        summary:
+            "Healthcare professional experienced in patient care, clinical coordination, documentation, quality standards and multidisciplinary collaboration. Focused on evidence-based practice, patient safety, service quality and accurate clinical records.",
+
+        skills: [
+            {
+                category: "Clinical",
+                items: ["Patient Care", "Clinical Documentation", "Patient Assessment", "Care Coordination"]
+            },
+            {
+                category: "Quality",
+                items: ["Patient Safety", "Quality Assurance", "Healthcare Compliance", "Infection Control"]
+            },
+            {
+                category: "Professional",
+                items: ["Team Collaboration", "Communication", "Case Management", "Healthcare Records"]
+            }
+        ],
+
+        experience: [
+            {
+                jobTitle: "Healthcare Professional",
+                company: "ABC Multispeciality Hospital",
+                location: "Delhi",
+                startDate: "2021",
+                endDate: "Present",
+                bullets: [
+                    "Coordinated patient care activities across multidisciplinary teams while maintaining accurate clinical documentation.",
+                    "Improved documentation completeness by 20% through standardized record-review processes.",
+                    "Supported quality initiatives focused on patient safety, compliance and service delivery."
+                ]
+            }
+        ],
+
+        projects: [
+            {
+                name: "Clinical Documentation Improvement",
+                technologies: "Healthcare Records, Quality Assurance",
+                link: "",
+                bullets: [
+                    "Implemented a structured documentation review checklist for clinical teams.",
+                    "Improved completeness and consistency of patient records through recurring quality audits."
+                ]
+            }
+        ],
+
+        education: [
+            {
+                degree: "Bachelor of Science in Nursing",
+                institution: "ABC University",
+                location: "Delhi",
+                startDate: "2017",
+                endDate: "2021",
+                grade: ""
+            }
+        ],
+
+        certifications: [
+            {
+                name: "Basic Life Support",
+                issuer: "American Heart Association",
+                year: "2024",
+                credential: ""
+            }
+        ]
+    },
+
+
+    sales: {
+        personal: {
+            fullName: "Karan Shah",
+            professionalTitle: "Sales Executive / Business Development",
+            city: "Mumbai",
+            state: "Maharashtra",
+            country: "India",
+            phone: "+91 98765 66778",
+            email: "karan.shah@example.com",
+            linkedin: "https://www.linkedin.com/in/karanshah",
+            portfolio: ""
+        },
+
+        summary:
+            "Business development professional with 6+ years of experience in B2B sales, account management, lead generation and strategic customer acquisition. Proven experience managing sales pipelines, developing client relationships and consistently achieving revenue targets.",
+
+        skills: [
+            {
+                category: "Sales",
+                items: ["B2B Sales", "Lead Generation", "Account Management", "Negotiation"]
+            },
+            {
+                category: "Business Development",
+                items: ["Pipeline Management", "Market Research", "Client Acquisition", "Partnerships"]
+            },
+            {
+                category: "Tools",
+                items: ["Salesforce", "HubSpot", "Excel", "CRM Analytics"]
+            }
+        ],
+
+        experience: [
+            {
+                jobTitle: "Business Development Executive",
+                company: "ABC Enterprise Solutions",
+                location: "Mumbai, Maharashtra",
+                startDate: "2020",
+                endDate: "Present",
+                bullets: [
+                    "Generated ₹4.5 crore in annual sales revenue by developing enterprise accounts and expanding existing relationships.",
+                    "Exceeded quarterly sales targets by an average of 18% through structured prospecting and account planning.",
+                    "Improved lead-to-opportunity conversion by 24% through qualification frameworks and CRM pipeline discipline."
+                ]
+            }
+        ],
+
+        projects: [
+            {
+                name: "Enterprise Account Expansion Program",
+                technologies: "CRM, Sales Analytics, Account Planning",
+                link: "",
+                bullets: [
+                    "Created account expansion plans for high-value customers based on product adoption and business needs.",
+                    "Increased revenue from targeted accounts by 28% within one year."
+                ]
+            }
+        ],
+
+        education: [
+            {
+                degree: "Bachelor of Business Administration",
+                institution: "University of Mumbai",
+                location: "Mumbai, Maharashtra",
+                startDate: "2015",
+                endDate: "2018",
+                grade: ""
+            }
+        ],
+
+        certifications: [
+            {
+                name: "Professional Sales Certification",
+                issuer: "Salesforce",
+                year: "2023",
+                credential: ""
+            }
+        ]
+    },
+
+
+    hr: {
+        personal: {
+            fullName: "Sneha Iyer",
+            professionalTitle: "Human Resources Professional",
+            city: "Bengaluru",
+            state: "Karnataka",
+            country: "India",
+            phone: "+91 98765 22334",
+            email: "sneha.iyer@example.com",
+            linkedin: "https://www.linkedin.com/in/snehaiyer",
+            portfolio: ""
+        },
+
+        summary:
+            "Human Resources professional with 6+ years of experience across talent acquisition, employee engagement, HR operations and performance management. Experienced in partnering with business leaders to improve hiring quality, employee experience and HR process efficiency.",
+
+        skills: [
+            {
+                category: "Human Resources",
+                items: ["Talent Acquisition", "Employee Relations", "Performance Management", "HR Operations"]
+            },
+            {
+                category: "Recruitment",
+                items: ["Sourcing", "Interviewing", "Employer Branding", "Campus Hiring"]
+            },
+            {
+                category: "Tools",
+                items: ["Workday", "HRMS", "Excel", "LinkedIn Recruiter"]
+            }
+        ],
+
+        experience: [
+            {
+                jobTitle: "HR Business Partner",
+                company: "ABC Technologies",
+                location: "Bengaluru, Karnataka",
+                startDate: "2020",
+                endDate: "Present",
+                bullets: [
+                    "Partnered with business leaders supporting a workforce of 500+ employees across technology functions.",
+                    "Reduced average hiring turnaround time by 25% through structured sourcing and interview workflows.",
+                    "Improved employee engagement participation by 30% through targeted communication and feedback programs."
+                ]
+            }
+        ],
+
+        projects: [
+            {
+                name: "Recruitment Process Optimization",
+                technologies: "ATS, HR Analytics, Process Mapping",
+                link: "",
+                bullets: [
+                    "Redesigned recruitment workflows to standardize requisition, screening and interview stages.",
+                    "Improved recruiter productivity through standardized dashboards and hiring metrics."
+                ]
+            }
+        ],
+
+        education: [
+            {
+                degree: "Master of Business Administration in Human Resources",
+                institution: "ABC Business School",
+                location: "Bengaluru, Karnataka",
+                startDate: "2016",
+                endDate: "2018",
+                grade: ""
+            }
+        ],
+
+        certifications: [
+            {
+                name: "SHRM Certified Professional",
+                issuer: "SHRM",
+                year: "2023",
+                credential: ""
+            }
+        ]
+    },
+
+
+    civil: {
+        personal: {
+            fullName: "Rohit Verma",
+            professionalTitle: "Civil Project Engineer",
+            city: "Noida",
+            state: "Uttar Pradesh",
+            country: "India",
+            phone: "+91 98765 33445",
+            email: "rohit.verma@example.com",
+            linkedin: "https://www.linkedin.com/in/rohitverma",
+            portfolio: ""
+        },
+
+        summary:
+            "Civil Project Engineer with 7+ years of experience managing commercial and infrastructure projects from planning through execution. Skilled in site management, contractor coordination, quantity estimation, quality control, safety and project documentation.",
+
+        skills: [
+            {
+                category: "Civil Engineering",
+                items: ["Site Execution", "Quantity Estimation", "BOQ", "Quality Control"]
+            },
+            {
+                category: "Project Management",
+                items: ["Project Planning", "Contractor Management", "Cost Control", "Safety Management"]
+            },
+            {
+                category: "Tools",
+                items: ["AutoCAD", "MS Project", "Primavera P6", "Excel"]
+            }
+        ],
+
+        experience: [
+            {
+                jobTitle: "Civil Project Engineer",
+                company: "ABC Infrastructure Pvt. Ltd.",
+                location: "Noida, Uttar Pradesh",
+                startDate: "2019",
+                endDate: "Present",
+                bullets: [
+                    "Managed site execution activities for commercial construction projects valued at ₹20 crore.",
+                    "Reduced material wastage by 12% through quantity tracking, procurement coordination and site controls.",
+                    "Coordinated contractors and subcontractors to maintain project milestones and quality standards."
+                ]
+            }
+        ],
+
+        projects: [
+            {
+                name: "Commercial Building Construction",
+                technologies: "AutoCAD, Primavera P6, BOQ, Site Management",
+                link: "",
+                bullets: [
+                    "Coordinated civil, structural and finishing activities across a multi-phase commercial project.",
+                    "Maintained project progress reporting and contractor coordination against approved milestones."
+                ]
+            }
+        ],
+
+        education: [
+            {
+                degree: "Bachelor of Technology in Civil Engineering",
+                institution: "Dr. A.P.J. Abdul Kalam Technical University",
+                location: "Lucknow, Uttar Pradesh",
+                startDate: "2015",
+                endDate: "2019",
+                grade: "CGPA: 8.2/10"
+            }
+        ],
+
+        certifications: [
+            {
+                name: "Primavera P6 Professional",
+                issuer: "Oracle",
+                year: "2021",
+                credential: ""
+            }
+        ]
+    }
+};
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let state = createBlankState();
+
+
+function createBlankState() {
+
+    return {
+        personal: {
+            fullName: "",
+            professionalTitle: "",
+            city: "",
+            state: "",
+            country: "India",
+            phone: "",
+            email: "",
+            linkedin: "",
+            portfolio: ""
+        },
+
+        summary: "",
+
+        skills: [
+            {
+                category: "Technical Skills",
+                items: []
+            }
+        ],
+
+        experience: [],
+
+        projects: [],
+
+        education: [],
+
+        certifications: []
+    };
+}
+
+
+/* =========================================================
+   UTILITY FUNCTIONS
+========================================================= */
+
+function deepClone(obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+function safeUrl(value) {
+
+    const url = String(value || "").trim();
+
+    if (!url) {
+        return "";
+    }
+
+    try {
+
+        const parsed = new URL(url);
+
+        if (
+            parsed.protocol === "https:" ||
+            parsed.protocol === "http:"
+        ) {
+            return parsed.href;
+        }
+
+    } catch (error) {}
+
+    return "";
+}
+
+
+function formatText(value) {
+    return escapeHTML(value).replace(/\n/g, "<br>");
+}
+
+
+function normalizePhone(value) {
+
+    let phone = String(value || "").trim();
+
+    if (!phone) {
+        return "";
+    }
+
+    if (!phone.startsWith("+91")) {
+        const digits = phone.replace(/\D/g, "");
+
+        if (digits.length === 10) {
+            phone = "+91 " + digits;
+        }
+    }
+
+    return phone;
+}
+
+
+function valueOrFallback(value, fallback = "") {
+    return String(value || "").trim() || fallback;
+}
+
+
+/* =========================================================
+   DOM REFERENCES
+========================================================= */
+
+const $ = (selector) => document.querySelector(selector);
+
+const fullNameEl = $("#fullName");
+const professionalTitleEl = $("#professionalTitle");
+const cityEl = $("#city");
+const stateEl = $("#state");
+const countryEl = $("#country");
+const phoneEl = $("#phone");
+const emailEl = $("#email");
+const linkedinEl = $("#linkedin");
+const portfolioEl = $("#portfolio");
+const summaryEl = $("#summary");
+
+const skillsContainer = $("#skillsContainer");
+const experienceContainer = $("#experienceContainer");
+const projectsContainer = $("#projectsContainer");
+const educationContainer = $("#educationContainer");
+const certificationsContainer = $("#certificationsContainer");
+
+const sectorTemplateEl = $("#sectorTemplate");
+
+
+/* =========================================================
+   STATE -> FORM
+========================================================= */
+
+function populateFormFromState() {
+
+    fullNameEl.value = state.personal.fullName || "";
+    professionalTitleEl.value = state.personal.professionalTitle || "";
+    cityEl.value = state.personal.city || "";
+    stateEl.value = state.personal.state || "";
+    countryEl.value = "India";
+    phoneEl.value = state.personal.phone || "";
+    emailEl.value = state.personal.email || "";
+    linkedinEl.value = state.personal.linkedin || "";
+    portfolioEl.value = state.personal.portfolio || "";
+    summaryEl.value = state.summary || "";
+
+    renderSkillEditors();
+    renderExperienceEditors();
+    renderProjectEditors();
+    renderEducationEditors();
+    renderCertificationEditors();
+
+    updatePreview();
+}
+
+
+/* =========================================================
+   FORM -> STATE
+========================================================= */
+
+function collectBasicFields() {
+
+    state.personal = {
+        fullName: fullNameEl.value.trim(),
+        professionalTitle: professionalTitleEl.value.trim(),
+        city: cityEl.value.trim(),
+        state: stateEl.value.trim(),
+        country: "India",
+        phone: normalizePhone(phoneEl.value),
+        email: emailEl.value.trim(),
+        linkedin: linkedinEl.value.trim(),
+        portfolio: portfolioEl.value.trim()
+    };
+
+    state.summary = summaryEl.value.trim();
+}
+
+
+/* =========================================================
+   LIVE INPUT LISTENERS
+========================================================= */
+
+[
+    fullNameEl,
+    professionalTitleEl,
+    cityEl,
+    stateEl,
+    phoneEl,
+    emailEl,
+    linkedinEl,
+    portfolioEl,
+    summaryEl
+].forEach(element => {
+
+    element.addEventListener("input", () => {
+
+        collectBasicFields();
+
+        if (element === summaryEl) {
+            $("#summaryCount").textContent =
+                `${summaryEl.value.length} / 600`;
+        }
+
+        updatePreview();
+        updateATSStatus();
+
+        autoSave();
+    });
+});
+
+
+/* =========================================================
+   SKILLS EDITOR
+========================================================= */
+
+function renderSkillEditors() {
+
+    skillsContainer.innerHTML = "";
+
+    state.skills.forEach((category, index) => {
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "skill-category";
+
+        const header = document.createElement("div");
+        header.className = "skill-category-head";
+
+        const categoryInput = document.createElement("input");
+        categoryInput.type = "text";
+        categoryInput.value = category.category;
+        categoryInput.placeholder = "Category name";
+
+        categoryInput.addEventListener("input", () => {
+            state.skills[index].category = categoryInput.value;
+            updatePreview();
+            autoSave();
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "btn btn-danger btn-sm";
+        deleteButton.textContent = "Remove";
+
+        deleteButton.addEventListener("click", () => {
+
+            state.skills.splice(index, 1);
+
+            if (!state.skills.length) {
+                state.skills.push({
+                    category: "Technical Skills",
+                    items: []
+                });
+            }
+
+            renderSkillEditors();
+            updatePreview();
+            autoSave();
+        });
+
+        header.appendChild(categoryInput);
+        header.appendChild(deleteButton);
+
+        const skillList = document.createElement("div");
+        skillList.className = "skill-list";
+
+        category.items.forEach((skill, skillIndex) => {
+
+            const tag = document.createElement("span");
+            tag.className = "skill-tag";
+
+            const text = document.createElement("span");
+            text.textContent = skill;
+
+            const remove = document.createElement("button");
+            remove.type = "button";
+            remove.textContent = "×";
+            remove.title = "Remove skill";
+
+            remove.addEventListener("click", () => {
+
+                state.skills[index].items.splice(skillIndex, 1);
+
+                renderSkillEditors();
+                updatePreview();
+                autoSave();
+            });
+
+            tag.appendChild(text);
+            tag.appendChild(remove);
+            skillList.appendChild(tag);
+        });
+
+
+        const addArea = document.createElement("div");
+        addArea.className = "skill-add";
+
+        const skillInput = document.createElement("input");
+        skillInput.type = "text";
+        skillInput.placeholder = "Type a skill and press Add";
+
+        const addButton = document.createElement("button");
+        addButton.type = "button";
+        addButton.className = "btn btn-secondary btn-sm";
+        addButton.textContent = "Add";
+
+        function addSkill() {
+
+            const value = skillInput.value.trim();
+
+            if (!value) {
+                return;
+            }
+
+            state.skills[index].items.push(value);
+
+            skillInput.value = "";
+
+            renderSkillEditors();
+            updatePreview();
+            autoSave();
+        }
+
+        addButton.addEventListener("click", addSkill);
+
+        skillInput.addEventListener("keydown", event => {
+
+            if (event.key === "Enter") {
+                event.preventDefault();
+                addSkill();
+            }
+        });
+
+        addArea.appendChild(skillInput);
+        addArea.appendChild(addButton);
+
+        wrapper.appendChild(header);
+        wrapper.appendChild(skillList);
+        wrapper.appendChild(addArea);
+
+        skillsContainer.appendChild(wrapper);
+    });
+}
+
+
+$("#addSkillCategoryBtn").addEventListener("click", () => {
+
+    state.skills.push({
+        category: "New Skills",
+        items: []
+    });
+
+    renderSkillEditors();
+    updatePreview();
+    autoSave();
+});
+
+
+/* =========================================================
+   REPEATABLE EXPERIENCE
+========================================================= */
+
+function renderExperienceEditors() {
+
+    experienceContainer.innerHTML = "";
+
+    if (!state.experience.length) {
+
+        const empty = document.createElement("div");
+        empty.className = "text-xs text-slate-500";
+        empty.textContent =
+            "No work experience added. Click “+ Experience” to add one.";
+
+        experienceContainer.appendChild(empty);
+        return;
+    }
+
+    state.experience.forEach((item, index) => {
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "repeatable-item";
+
+        const header = document.createElement("div");
+        header.className = "repeatable-header";
+
+        const title = document.createElement("div");
+        title.className = "repeatable-title";
+        title.textContent =
+            item.jobTitle || `Experience ${index + 1}`;
+
+        const actions = document.createElement("div");
+
+        const remove = document.createElement("button");
+        remove.className = "btn btn-danger btn-sm";
+        remove.textContent = "Remove";
+
+        remove.addEventListener("click", () => {
+
+            state.experience.splice(index, 1);
+
+            renderExperienceEditors();
+            updatePreview();
+            autoSave();
+        });
+
+        actions.appendChild(remove);
+
+        header.appendChild(title);
+        header.appendChild(actions);
+
+        const body = document.createElement("div");
+        body.className = "repeatable-body";
+
+        const grid = document.createElement("div");
+        grid.className = "form-grid";
+
+        grid.appendChild(
+            createField(
+                "Job Title",
+                item.jobTitle,
+                value => {
+                    item.jobTitle = value;
+                    title.textContent =
+                        value || `Experience ${index + 1}`;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "Company",
+                item.company,
+                value => {
+                    item.company = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "Location",
+                item.location,
+                value => {
+                    item.location = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "Start Date",
+                item.startDate,
+                value => {
+                    item.startDate = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "End Date",
+                item.endDate,
+                value => {
+                    item.endDate = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        body.appendChild(grid);
+
+        const bulletsHeading = document.createElement("div");
+        bulletsHeading.className = "flex items-center justify-between mt-4 mb-2";
+
+        const bulletsLabel = document.createElement("strong");
+        bulletsLabel.className = "text-xs";
+        bulletsLabel.textContent = "Achievement Bullets";
+
+        const addBullet = document.createElement("button");
+        addBullet.className = "btn btn-secondary btn-sm";
+        addBullet.textContent = "+ Bullet";
+
+        bulletsHeading.appendChild(bulletsLabel);
+        bulletsHeading.appendChild(addBullet);
+
+        body.appendChild(bulletsHeading);
+
+        const bullets = document.createElement("div");
+        bullets.className = "bullet-editor";
+
+        function renderBullets() {
+
+            bullets.innerHTML = "";
+
+            item.bullets.forEach((bullet, bulletIndex) => {
+
+                const row = document.createElement("div");
+                row.className = "bullet-row";
+
+                const input = document.createElement("input");
+                input.type = "text";
+                input.value = bullet;
+                input.placeholder =
+                    "Accomplished X, measured by Y, by doing Z...";
+
+                input.addEventListener("input", () => {
+
+                    item.bullets[bulletIndex] = input.value;
+
+                    updatePreview();
+                    autoSave();
+                });
+
+                const removeBullet = document.createElement("button");
+                removeBullet.className = "btn btn-danger btn-sm";
+                removeBullet.textContent = "×";
+
+                removeBullet.addEventListener("click", () => {
+
+                    item.bullets.splice(bulletIndex, 1);
+
+                    renderBullets();
+                    updatePreview();
+                    autoSave();
+                });
+
+                row.appendChild(input);
+                row.appendChild(removeBullet);
+
+                bullets.appendChild(row);
+            });
+
+            createXYZAssistant(bullets, item, "experience");
+        }
+
+        addBullet.addEventListener("click", () => {
+
+            item.bullets.push("");
+
+            renderBullets();
+            updatePreview();
+            autoSave();
+        });
+
+        body.appendChild(bulletsHeading);
+        body.appendChild(bullets);
+
+        wrapper.appendChild(header);
+        wrapper.appendChild(body);
+
+        experienceContainer.appendChild(wrapper);
+
+        renderBullets();
+    });
+}
+
+
+$("#addExperienceBtn").addEventListener("click", () => {
+
+    state.experience.push({
+        jobTitle: "",
+        company: "",
+        location: "",
+        startDate: "",
+        endDate: "Present",
+        bullets: [""]
+    });
+
+    renderExperienceEditors();
+    updatePreview();
+    autoSave();
+});
+
+
+/* =========================================================
+   PROJECTS
+========================================================= */
+
+function renderProjectEditors() {
+
+    projectsContainer.innerHTML = "";
+
+    if (!state.projects.length) {
+
+        const empty = document.createElement("div");
+        empty.className = "text-xs text-slate-500";
+        empty.textContent =
+            "No projects added. Click “+ Project” to add one.";
+
+        projectsContainer.appendChild(empty);
+        return;
+    }
+
+    state.projects.forEach((item, index) => {
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "repeatable-item";
+
+        const header = document.createElement("div");
+        header.className = "repeatable-header";
+
+        const title = document.createElement("div");
+        title.className = "repeatable-title";
+        title.textContent =
+            item.name || `Project ${index + 1}`;
+
+        const remove = document.createElement("button");
+        remove.className = "btn btn-danger btn-sm";
+        remove.textContent = "Remove";
+
+        remove.addEventListener("click", () => {
+
+            state.projects.splice(index, 1);
+
+            renderProjectEditors();
+            updatePreview();
+            autoSave();
+        });
+
+        header.appendChild(title);
+        header.appendChild(remove);
+
+        const body = document.createElement("div");
+        body.className = "repeatable-body";
+
+        const grid = document.createElement("div");
+        grid.className = "form-grid";
+
+        grid.appendChild(
+            createField(
+                "Project Name",
+                item.name,
+                value => {
+                    item.name = value;
+                    title.textContent =
+                        value || `Project ${index + 1}`;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "Technologies / Tools",
+                item.technologies,
+                value => {
+                    item.technologies = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "Project URL",
+                item.link,
+                value => {
+                    item.link = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        body.appendChild(grid);
+
+        const heading = document.createElement("div");
+        heading.className =
+            "flex items-center justify-between mt-4 mb-2";
+
+        const label = document.createElement("strong");
+        label.className = "text-xs";
+        label.textContent = "Project Highlights";
+
+        const addBullet = document.createElement("button");
+        addBullet.className = "btn btn-secondary btn-sm";
+        addBullet.textContent = "+ Bullet";
+
+        heading.appendChild(label);
+        heading.appendChild(addBullet);
+
+        body.appendChild(heading);
+
+        const bullets = document.createElement("div");
+        bullets.className = "bullet-editor";
+
+        function renderBullets() {
+
+            bullets.innerHTML = "";
+
+            item.bullets.forEach((bullet, bulletIndex) => {
+
+                const row = document.createElement("div");
+                row.className = "bullet-row";
+
+                const input = document.createElement("input");
+                input.type = "text";
+                input.value = bullet;
+                input.placeholder =
+                    "Describe action, technology and measurable impact.";
+
+                input.addEventListener("input", () => {
+
+                    item.bullets[bulletIndex] = input.value;
+
+                    updatePreview();
+                    autoSave();
+                });
+
+                const remove = document.createElement("button");
+                remove.className = "btn btn-danger btn-sm";
+                remove.textContent = "×";
+
+                remove.addEventListener("click", () => {
+
+                    item.bullets.splice(bulletIndex, 1);
+
+                    renderBullets();
+                    updatePreview();
+                    autoSave();
+                });
+
+                row.appendChild(input);
+                row.appendChild(remove);
+
+                bullets.appendChild(row);
+            });
+
+            createXYZAssistant(bullets, item, "project");
+        }
+
+        addBullet.addEventListener("click", () => {
+
+            item.bullets.push("");
+
+            renderBullets();
+            updatePreview();
+            autoSave();
+        });
+
+        body.appendChild(bullets);
+        wrapper.appendChild(header);
+        wrapper.appendChild(body);
+
+        projectsContainer.appendChild(wrapper);
+
+        renderBullets();
+    });
+}
+
+
+$("#addProjectBtn").addEventListener("click", () => {
+
+    state.projects.push({
+        name: "",
+        technologies: "",
+        link: "",
+        bullets: [""]
+    });
+
+    renderProjectEditors();
+    updatePreview();
+    autoSave();
+});
+
+
+/* =========================================================
+   EDUCATION
+========================================================= */
+
+function renderEducationEditors() {
+
+    educationContainer.innerHTML = "";
+
+    if (!state.education.length) {
+
+        const empty = document.createElement("div");
+        empty.className = "text-xs text-slate-500";
+        empty.textContent =
+            "No education added. Click “+ Education”.";
+
+        educationContainer.appendChild(empty);
+        return;
+    }
+
+    state.education.forEach((item, index) => {
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "repeatable-item";
+
+        const header = document.createElement("div");
+        header.className = "repeatable-header";
+
+        const title = document.createElement("div");
+        title.className = "repeatable-title";
+        title.textContent =
+            item.degree || `Education ${index + 1}`;
+
+        const remove = document.createElement("button");
+        remove.className = "btn btn-danger btn-sm";
+        remove.textContent = "Remove";
+
+        remove.addEventListener("click", () => {
+
+            state.education.splice(index, 1);
+
+            renderEducationEditors();
+            updatePreview();
+            autoSave();
+        });
+
+        header.appendChild(title);
+        header.appendChild(remove);
+
+        const body = document.createElement("div");
+        body.className = "repeatable-body";
+
+        const grid = document.createElement("div");
+        grid.className = "form-grid";
+
+        grid.appendChild(
+            createField(
+                "Degree / Qualification",
+                item.degree,
+                value => {
+                    item.degree = value;
+                    title.textContent =
+                        value || `Education ${index + 1}`;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "Institution",
+                item.institution,
+                value => {
+                    item.institution = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "Location",
+                item.location,
+                value => {
+                    item.location = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "Start Year",
+                item.startDate,
+                value => {
+                    item.startDate = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "End Year",
+                item.endDate,
+                value => {
+                    item.endDate = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "Grade / Result",
+                item.grade,
+                value => {
+                    item.grade = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        body.appendChild(grid);
+
+        wrapper.appendChild(header);
+        wrapper.appendChild(body);
+
+        educationContainer.appendChild(wrapper);
+    });
+}
+
+
+$("#addEducationBtn").addEventListener("click", () => {
+
+    state.education.push({
+        degree: "",
+        institution: "",
+        location: "",
+        startDate: "",
+        endDate: "",
+        grade: ""
+    });
+
+    renderEducationEditors();
+    updatePreview();
+    autoSave();
+});
+
+
+/* =========================================================
+   CERTIFICATIONS
+========================================================= */
+
+function renderCertificationEditors() {
+
+    certificationsContainer.innerHTML = "";
+
+    if (!state.certifications.length) {
+
+        const empty = document.createElement("div");
+        empty.className = "text-xs text-slate-500";
+        empty.textContent =
+            "No certifications added. Click “+ Certification”.";
+
+        certificationsContainer.appendChild(empty);
+        return;
+    }
+
+    state.certifications.forEach((item, index) => {
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "repeatable-item";
+
+        const header = document.createElement("div");
+        header.className = "repeatable-header";
+
+        const title = document.createElement("div");
+        title.className = "repeatable-title";
+        title.textContent =
+            item.name || `Certification ${index + 1}`;
+
+        const remove = document.createElement("button");
+        remove.className = "btn btn-danger btn-sm";
+        remove.textContent = "Remove";
+
+        remove.addEventListener("click", () => {
+
+            state.certifications.splice(index, 1);
+
+            renderCertificationEditors();
+            updatePreview();
+            autoSave();
+        });
+
+        header.appendChild(title);
+        header.appendChild(remove);
+
+        const body = document.createElement("div");
+        body.className = "repeatable-body";
+
+        const grid = document.createElement("div");
+        grid.className = "form-grid";
+
+        grid.appendChild(
+            createField(
+                "Certification",
+                item.name,
+                value => {
+                    item.name = value;
+                    title.textContent =
+                        value || `Certification ${index + 1}`;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "Issuing Organization",
+                item.issuer,
+                value => {
+                    item.issuer = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "Year",
+                item.year,
+                value => {
+                    item.year = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        grid.appendChild(
+            createField(
+                "Credential ID",
+                item.credential,
+                value => {
+                    item.credential = value;
+                    updatePreview();
+                    autoSave();
+                }
+            )
+        );
+
+        body.appendChild(grid);
+        wrapper.appendChild(header);
+        wrapper.appendChild(body);
+
+        certificationsContainer.appendChild(wrapper);
+    });
+}
+
+
+$("#addCertificationBtn").addEventListener("click", () => {
+
+    state.certifications.push({
+        name: "",
+        issuer: "",
+        year: "",
+        credential: ""
+    });
+
+    renderCertificationEditors();
+    updatePreview();
+    autoSave();
+});
+
+
+/* =========================================================
+   GENERIC FIELD CREATOR
+========================================================= */
+
+function createField(labelText, initialValue, onChange) {
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "field";
+
+    const label = document.createElement("label");
+    label.textContent = labelText;
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = initialValue || "";
+
+    input.addEventListener("input", () => {
+        onChange(input.value.trim());
+    });
+
+    wrapper.appendChild(label);
+    wrapper.appendChild(input);
+
+    return wrapper;
+}
+
+
+/* =========================================================
+   XYZ BULLET ASSISTANT
+========================================================= */
+
+function createXYZAssistant(container, item, type) {
+
+    const box = document.createElement("div");
+    box.className = "assistant-box";
+
+    const heading = document.createElement("h3");
+    heading.textContent =
+        "Achievement Assistant — XYZ Formula";
+
+    box.appendChild(heading);
+
+    const description = document.createElement("div");
+    description.className = "help-text";
+    description.innerHTML =
+        "Use <strong>Accomplished X</strong>, " +
+        "<strong>measured by Y</strong>, " +
+        "<strong>by doing Z</strong>.";
+    
+    box.appendChild(description);
+
+    const suggestions = getSuggestions(type);
+
+    suggestions.forEach(text => {
+
+        const suggestion = document.createElement("div");
+        suggestion.className = "suggestion";
+        suggestion.textContent = text;
+
+        suggestion.title = "Click to add this bullet";
+
+        suggestion.addEventListener("click", () => {
+
+            const blankIndex = item.bullets.findIndex(
+                bullet => !bullet.trim()
+            );
+
+            if (blankIndex >= 0) {
+                item.bullets[blankIndex] = text;
+            } else {
+                item.bullets.push(text);
+            }
+
+            if (type === "experience") {
+                renderExperienceEditors();
+            } else {
+                renderProjectEditors();
+            }
+
+            updatePreview();
+            autoSave();
+        });
+
+        box.appendChild(suggestion);
+    });
+
+    container.appendChild(box);
+}
+
+
+function getSuggestions(type) {
+
+    if (type === "project") {
+
+        return [
+            "Built a solution that improved process efficiency by 25% by automating repetitive workflows.",
+            "Developed a scalable implementation that reduced processing time by 30% through workflow optimization.",
+            "Delivered project outcomes within planned milestones by coordinating requirements, execution and validation."
+        ];
+    }
+
+    return [
+        "Improved operational efficiency by 25% by redesigning workflows and introducing standardized processes.",
+        "Reduced processing time by 30% by automating repetitive tasks and implementing performance monitoring.",
+        "Increased productivity by 20% by introducing structured KPIs, reporting dashboards and process improvements."
+    ];
+}
+
+
+/* =========================================================
+   PREVIEW RENDERING
+========================================================= */
+
+function updatePreview() {
+
+    collectBasicFields();
+
+    const name = valueOrFallback(
+        state.personal.fullName,
+        "Your Full Name"
+    );
+
+    const role = valueOrFallback(
+        state.personal.professionalTitle,
+        "Professional Title"
+    );
+
+    $("#previewName").textContent = name;
+    $("#previewRole").textContent = role;
+
+
+    /* Contact */
+
+    const contactParts = [];
+
+    const locationParts = [
+        state.personal.city,
+        state.personal.state,
+        "India"
+    ].filter(Boolean);
+
+    if (locationParts.length) {
+        contactParts.push(
+            escapeHTML(locationParts.join(", "))
+        );
+    }
+
+    if (state.personal.phone) {
+        contactParts.push(
+            escapeHTML(normalizePhone(state.personal.phone))
+        );
+    }
+
+    if (state.personal.email) {
+
+        const email = escapeHTML(state.personal.email);
+
+        contactParts.push(
+            `<a href="mailto:${email}">${email}</a>`
+        );
+    }
+
+    const linkedInUrl = safeUrl(state.personal.linkedin);
+
+    if (linkedInUrl) {
+
+        contactParts.push(
+            `<a href="${escapeHTML(linkedInUrl)}">${escapeHTML(state.personal.linkedin)}</a>`
+        );
+    }
+
+    const portfolioUrl = safeUrl(state.personal.portfolio);
+
+    if (portfolioUrl) {
+
+        contactParts.push(
+            `<a href="${escapeHTML(portfolioUrl)}">${escapeHTML(state.personal.portfolio)}</a>`
+        );
+    }
+
+    $("#previewContact").innerHTML =
+        contactParts.length
+            ? contactParts.join(" • ")
+            : "City, State, India • +91 XXXXX XXXXX • email@example.com";
+
+
+    /* Summary */
+
+    if (state.summary) {
+
+        $("#previewSummary").textContent =
+            state.summary;
+
+        $("#previewSummarySection").style.display = "block";
+
+    } else {
+
+        $("#previewSummary").innerHTML =
+            `<span class="preview-empty">
+                Add a professional summary from the editor.
+            </span>`;
+
+        $("#previewSummarySection").style.display = "block";
+    }
+
+
+    /* Skills */
+
+    renderSkillPreview();
+
+    /* Experience */
+
+    renderExperiencePreview();
+
+    /* Projects */
+
+    renderProjectPreview();
+
+    /* Education */
+
+    renderEducationPreview();
+
+    /* Certifications */
+
+    renderCertificationPreview();
+
+    updateATSStatus();
+}
+
+
+function renderSkillPreview() {
+
+    const container = $("#previewSkills");
+
+    container.innerHTML = "";
+
+    const categories = state.skills.filter(
+        item =>
+            item.category.trim() &&
+            item.items.length
+    );
+
+    if (!categories.length) {
+
+        container.innerHTML =
+            `<span class="preview-empty">
+                Add categorized skills.
+            </span>`;
+
+        return;
+    }
+
+    categories.forEach(category => {
+
+        const line = document.createElement("div");
+        line.className = "resume-skill-line";
+
+        const label = document.createElement("span");
+        label.className = "resume-skill-label";
+        label.textContent = category.category + ": ";
+
+        const skills = document.createElement("span");
+        skills.textContent =
+            category.items.join(", ");
+
+        line.appendChild(label);
+        line.appendChild(skills);
+
+        container.appendChild(line);
+    });
+}
+
+
+function renderExperiencePreview() {
+
+    const container = $("#previewExperience");
+
+    container.innerHTML = "";
+
+    if (!state.experience.length) {
+
+        container.innerHTML =
+            `<div class="preview-empty">
+                Add professional experience.
+            </div>`;
+
+        return;
+    }
+
+    state.experience.forEach(item => {
+
+        if (
+            !item.jobTitle &&
+            !item.company &&
+            !item.bullets.length
+        ) {
+            return;
+        }
+
+        const article = document.createElement("article");
+        article.className = "resume-experience-item";
+
+        const heading = document.createElement("div");
+        heading.className = "resume-item-heading";
+
+        const left = document.createElement("span");
+
+        left.textContent =
+            [
+                item.jobTitle,
+                item.company
+            ]
+            .filter(Boolean)
+            .join(" | ");
+
+        const date = document.createElement("span");
+        date.className = "date";
+
+        date.textContent =
+            [
+                item.startDate,
+                item.endDate
+            ]
+            .filter(Boolean)
+            .join(" – ");
+
+        heading.appendChild(left);
+
+        if (date.textContent) {
+            heading.appendChild(date);
+        }
+
+        article.appendChild(heading);
+
+        if (item.location) {
+
+            const location = document.createElement("div");
+            location.className =
+                "resume-item-subheading";
+
+            location.textContent =
+                item.location;
+
+            article.appendChild(location);
+        }
+
+        const validBullets =
+            item.bullets.filter(
+                bullet => bullet.trim()
+            );
+
+        if (validBullets.length) {
+
+            const ul = document.createElement("ul");
+            ul.className = "resume-bullets";
+
+            validBullets.forEach(bullet => {
+
+                const li = document.createElement("li");
+                li.textContent = bullet;
+
+                ul.appendChild(li);
+            });
+
+            article.appendChild(ul);
+        }
+
+        container.appendChild(article);
+    });
+}
+
+
+function renderProjectPreview() {
+
+    const container = $("#previewProjects");
+
+    container.innerHTML = "";
+
+    if (!state.projects.length) {
+
+        container.innerHTML =
+            `<div class="preview-empty">
+                Add relevant projects.
+            </div>`;
+
+        return;
+    }
+
+    state.projects.forEach(item => {
+
+        if (!item.name && !item.bullets.length) {
+            return;
+        }
+
+        const article = document.createElement("article");
+        article.className = "resume-project-item";
+
+        const heading = document.createElement("div");
+        heading.className = "resume-item-heading";
+
+        const name = document.createElement("span");
+        name.textContent = item.name || "Project";
+
+        heading.appendChild(name);
+
+        if (item.link) {
+
+            const url = safeUrl(item.link);
+
+            if (url) {
+
+                const link = document.createElement("a");
+                link.href = url;
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                link.textContent = item.link;
+                link.style.fontWeight = "normal";
+                link.style.fontSize = "9pt";
+
+                heading.appendChild(link);
+            }
+        }
+
+        article.appendChild(heading);
+
+        if (item.technologies) {
+
+            const tech = document.createElement("div");
+            tech.className =
+                "resume-item-subheading";
+
+            tech.textContent =
+                "Technologies: " +
+                item.technologies;
+
+            article.appendChild(tech);
+        }
+
+        const validBullets =
+            item.bullets.filter(
+                bullet => bullet.trim()
+            );
+
+        if (validBullets.length) {
+
+            const ul = document.createElement("ul");
+            ul.className = "resume-bullets";
+
+            validBullets.forEach(bullet => {
+
+                const li = document.createElement("li");
+                li.textContent = bullet;
+
+                ul.appendChild(li);
+            });
+
+            article.appendChild(ul);
+        }
+
+        container.appendChild(article);
+    });
+}
+
+
+function renderEducationPreview() {
+
+    const container = $("#previewEducation");
+
+    container.innerHTML = "";
+
+    if (!state.education.length) {
+
+        container.innerHTML =
+            `<div class="preview-empty">
+                Add educational qualifications.
+            </div>`;
+
+        return;
+    }
+
+    state.education.forEach(item => {
+
+        if (!item.degree && !item.institution) {
+            return;
+        }
+
+        const article = document.createElement("article");
+        article.className = "resume-education-item";
+
+        const heading = document.createElement("div");
+        heading.className = "resume-item-heading";
+
+        const left = document.createElement("span");
+
+        left.textContent =
+            [
+                item.degree,
+                item.institution
+            ]
+            .filter(Boolean)
+            .join(" | ");
+
+        const date = document.createElement("span");
+        date.className = "date";
+
+        date.textContent =
+            [
+                item.startDate,
+                item.endDate
+            ]
+            .filter(Boolean)
+            .join(" – ");
+
+        heading.appendChild(left);
+
+        if (date.textContent) {
+            heading.appendChild(date);
+        }
+
+        article.appendChild(heading);
+
+        const details = [
+            item.location,
+            item.grade
+        ].filter(Boolean);
+
+        if (details.length) {
+
+            const detail = document.createElement("div");
+            detail.className =
+                "resume-item-subheading";
+
+            detail.textContent =
+                details.join(" | ");
+
+            article.appendChild(detail);
+        }
+
+        container.appendChild(article);
+    });
+}
+
+
+function renderCertificationPreview() {
+
+    const container = $("#previewCertifications");
+
+    container.innerHTML = "";
+
+    if (!state.certifications.length) {
+
+        container.innerHTML =
+            `<div class="preview-empty">
+                Add relevant certifications.
+            </div>`;
+
+        return;
+    }
+
+    const ul = document.createElement("ul");
+    ul.className = "resume-plain-list";
+
+    state.certifications.forEach(item => {
+
+        if (!item.name) {
+            return;
+        }
+
+        const li = document.createElement("li");
+
+        const pieces = [
+            item.name,
+            item.issuer,
+            item.year
+        ].filter(Boolean);
+
+        if (item.credential) {
+            pieces.push(
+                "Credential: " + item.credential
+            );
+        }
+
+        li.textContent =
+            pieces.join(" | ");
+
+        ul.appendChild(li);
+    });
+
+    container.appendChild(ul);
+}
+
+
+/* =========================================================
+   ATS STATUS
+========================================================= */
+
+function updateATSStatus() {
+
+    collectBasicFields();
+
+    const checks = [];
+
+    checks.push({
+        label: "Full name provided",
+        ok: Boolean(state.personal.fullName)
+    });
+
+    checks.push({
+        label: "Professional email provided",
+        ok: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+            state.personal.email
+        )
+    });
+
+    checks.push({
+        label: "Indian +91 phone format",
+        ok: /^\+91[\s-]?\d{10}$/.test(
+            normalizePhone(state.personal.phone)
+                .replace(/\s+/g, " ")
+        )
+    });
+
+    checks.push({
+        label: "City and state provided",
+        ok:
+            Boolean(state.personal.city) &&
+            Boolean(state.personal.state)
+    });
+
+    checks.push({
+        label: "Professional summary present",
+        ok: state.summary.length >= 60
+    });
+
+    checks.push({
+        label: "Skills present",
+        ok:
+            state.skills.some(
+                category => category.items.length > 0
+            )
+    });
+
+    checks.push({
+        label: "Work experience present",
+        ok:
+            state.experience.some(
+                item =>
+                    item.jobTitle &&
+                    item.company
+            )
+    });
+
+    checks.push({
+        label: "Achievement bullets present",
+        ok:
+            state.experience.some(
+                item =>
+                    item.bullets.some(
+                        bullet => bullet.trim().length >= 20
+                    )
+            )
+    });
+
+    checks.push({
+        label: "Education present",
+        ok:
+            state.education.some(
+                item =>
+                    item.degree &&
+                    item.institution
+            )
+    });
+
+    checks.push({
+        label: "LinkedIn or portfolio provided",
+        ok:
+            Boolean(
+                safeUrl(state.personal.linkedin) ||
+                safeUrl(state.personal.portfolio)
+            )
+    });
+
+    const passed =
+        checks.filter(check => check.ok).length;
+
+    const percentage =
+        Math.round(
+            (passed / checks.length) * 100
+        );
+
+    $("#atsScore").textContent =
+        percentage + "%";
+
+    $("#atsProgress").style.width =
+        percentage + "%";
+
+    const list = $("#atsChecklist");
+
+    list.innerHTML = "";
+
+    checks.forEach(check => {
+
+        const li = document.createElement("li");
+
+        li.textContent =
+            (check.ok ? "✓ " : "○ ") +
+            check.label;
+
+        li.style.color =
+            check.ok
+                ? "#166534"
+                : "#64748b";
+
+        list.appendChild(li);
+    });
+}
+
+
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+let saveTimer = null;
+
+
+function autoSave() {
+
+    clearTimeout(saveTimer);
+
+    saveTimer = setTimeout(() => {
+
+        collectBasicFields();
+
+        try {
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify({
+                    state,
+                    savedAt: new Date().toISOString()
+                })
+            );
+
+        } catch (error) {
+
+            console.warn(
+                "Unable to save resume.",
+                error
+            );
+        }
+
+    }, 300);
+}
+
+
+function saveNow() {
+
+    collectBasicFields();
+
+    try {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({
+                state,
+                savedAt: new Date().toISOString()
+            })
+        );
+
+        showToast("Resume saved locally.");
+
+    } catch (error) {
+
+        showToast(
+            "Unable to save. Browser storage may be unavailable.",
+            true
+        );
+    }
+}
+
+
+function loadSaved() {
+
+    try {
+
+        const raw =
+            localStorage.getItem(STORAGE_KEY);
+
+        if (!raw) {
+
+            showToast(
+                "No saved resume found.",
+                true
+            );
+
+            return;
+        }
+
+        const saved =
+            JSON.parse(raw);
+
+        if (!saved.state) {
+            throw new Error("Invalid saved data.");
+        }
+
+        state = saved.state;
+
+        populateFormFromState();
+
+        const date =
+            saved.savedAt
+                ? new Date(saved.savedAt)
+                : null;
+
+        showToast(
+            date
+                ? `Resume loaded. Saved ${date.toLocaleString()}.`
+                : "Resume loaded."
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        showToast(
+            "Saved resume could not be loaded.",
+            true
+        );
+    }
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+function resetResume() {
+
+    const confirmed =
+        confirm(
+            "Reset the current resume? Unsaved information will be removed."
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    state = createBlankState();
+
+    populateFormFromState();
+
+    localStorage.removeItem(STORAGE_KEY);
+
+    showToast("Resume reset.");
+}
+
+
+/* =========================================================
+   TEMPLATE LOADER
+========================================================= */
+
+sectorTemplateEl.addEventListener("change", () => {
+
+    const key =
+        sectorTemplateEl.value;
+
+    if (!key) {
+        return;
+    }
+
+    const confirmed =
+        confirm(
+            "This will replace the current resume with the selected starter template. Continue?"
+        );
+
+    if (!confirmed) {
+
+        sectorTemplateEl.value = "";
+
+        return;
+    }
+
+    state =
+        deepClone(TEMPLATES[key]);
+
+    populateFormFromState();
+
+    autoSave();
+
+    showToast(
+        "Template loaded. Customize it with your own information."
+    );
+
+    sectorTemplateEl.value = "";
+});
+
+
+/* =========================================================
+   BUTTON EVENTS
+========================================================= */
+
+$("#saveBtn").addEventListener(
+    "click",
+    saveNow
+);
+
+$("#loadBtn").addEventListener(
+    "click",
+    loadSaved
+);
+
+$("#resetBtn").addEventListener(
+    "click",
+    resetResume
+);
+
+$("#printBtn").addEventListener(
+    "click",
+    () => window.print()
+);
+
+$("#printBtn2").addEventListener(
+    "click",
+    () => window.print()
+);
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+
+function showToast(message, error = false) {
+
+    let toast =
+        document.getElementById("appToast");
+
+    if (!toast) {
+
+        toast =
+            document.createElement("div");
+
+        toast.id = "appToast";
+
+        toast.style.position = "fixed";
+        toast.style.right = "18px";
+        toast.style.bottom = "18px";
+        toast.style.zIndex = "9999";
+        toast.style.padding = "11px 14px";
+        toast.style.borderRadius = "9px";
+        toast.style.fontSize = "12px";
+        toast.style.fontWeight = "700";
+        toast.style.boxShadow =
+            "0 10px 30px rgba(0,0,0,.18)";
+
+        document.body.appendChild(toast);
+    }
+
+    toast.textContent = message;
+
+    toast.style.background =
+        error ? "#fee2e2" : "#dcfce7";
+
+    toast.style.color =
+        error ? "#991b1b" : "#166534";
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(() => {
+
+            toast.remove();
+
+        }, 3000);
+}
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+function initialize() {
+
+    const saved =
+        localStorage.getItem(STORAGE_KEY);
+
+    if (saved) {
+
+        try {
+
+            const parsed =
+                JSON.parse(saved);
+
+            if (parsed.state) {
+
+                state = parsed.state;
+
+            }
+
+        } catch (error) {
+
+            console.warn(
+                "Saved state could not be parsed."
+            );
+        }
+    }
+
+    populateFormFromState();
+
+    $("#summaryCount").textContent =
+        `${summaryEl.value.length} / 600`;
+
+    updateATSStatus();
+}
+
+
+initialize();
+
+
+/* =========================================================
+   BEFORE UNLOAD AUTOSAVE
+========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    () => {
+
+        collectBasicFields();
+
+        try {
+
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify({
+                    state,
+                    savedAt: new Date().toISOString()
+                })
+            );
+
+        } catch (error) {}
+    }
+);
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        /*
+         * Ctrl/Cmd + S
+         */
+        if (
+            (event.ctrlKey || event.metaKey) &&
+            event.key.toLowerCase() === "s"
+        ) {
+
+            event.preventDefault();
+
+            saveNow();
+        }
+
+        /*
+         * Ctrl/Cmd + P
+         */
+        if (
+            (event.ctrlKey || event.metaKey) &&
+            event.key.toLowerCase() === "p"
+        ) {
+
+            event.preventDefault();
+
+            window.print();
+        }
+    }
+);
+
+</script>
+
+</body>
+</html>
+```
